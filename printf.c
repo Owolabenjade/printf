@@ -92,3 +92,33 @@ int _printf(const char *format, ...)
 
 	return (count);
 }
+
+/**
+ * intToBinary - Helper function to convert an integer to binary
+ * @num: The integer to be converted
+*/
+void intToBinary(unsigned int num)
+{
+	if (num / 2 != 0)
+		intToBinary(num / 2);
+	char c = (num % 2) + '0';
+	write(1, &c, 1);
+}
+
+/**
+ * countDigits - Helper function to count the number of digits in a number
+ * @num: The number
+ * @base: The base of the number system
+ *
+ * Return: Number of digits
+*/
+int countDigits(unsigned int num, int base)
+{
+	int count = 0;
+	while (num != 0)
+	{
+		num /= base;
+		count++;
+	}
+	return (count);
+}
