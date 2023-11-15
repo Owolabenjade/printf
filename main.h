@@ -30,6 +30,7 @@ struct fmat
 	int (*fn)(va_list, char[], int, int, int, int);
 };
 
+<<<<<<< HEAD
 
 /**
  * typedef struct fmat fmat_t - Struct op
@@ -115,3 +116,7 @@ long int convert_size_number(long int num, int size);
 long int convert_size_unsgnd(unsigned long int num, int size);
 
 #endif /* MAIN_H */
+=======
+int _printf(const char *format, ...);
+#endif
+>>>>>>> f6cc1b212d4f024b1d8be92b62b92e120d517fa2

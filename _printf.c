@@ -1,4 +1,5 @@
 #include "main.h"
+<<<<<<< HEAD
 
 void prntBuf(char buffer[], int *bufIndx);
 
@@ -63,3 +64,5 @@ void prntBuf(char buffer[], int *bufIndx)
 
 	*bufIndx = 0;
 }
+=======
+>>>>>>> f6cc1b212d4f024b1d8be92b62b92e120d517fa2
