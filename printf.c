@@ -1,12 +1,11 @@
 #include "main.h"
-#include <unistd.h>
 #include <stdarg.h>
+#include <unistd.h>
 
 /**
  *_printf - Custom printf function
  *@format: Format string
- *
- *Return: Number of characters printed (excluding null byte)
+ *Return: Number of characters printed
 */
 int _printf(const char *format, ...)
 {
@@ -32,9 +31,7 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					str = va_arg(args, char *);
-					if (str == NULL)
-						str = "(null)";
-					while (*str)
+					while (*str != '\0')
 					{
 						write(1, str, 1);
 						str++;
@@ -46,9 +43,11 @@ int _printf(const char *format, ...)
 					count++;
 					break;
 				default:
+					/* Handle unknown format specifier as in printf */
 					write(1, "%", 1);
 					write(1, &(*ptr), 1);
 					count += 2;
+					break;
 			}
 		}
 		else
@@ -59,6 +58,5 @@ int _printf(const char *format, ...)
 	}
 
 	va_end(args);
-
 	return (count);
 }
