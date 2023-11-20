@@ -9,7 +9,7 @@
 */
 int print_char(char c)
 {
-	return (write(1, &c, 1));
+	return write(1, &c, 1);
 }
 
 /**
@@ -34,6 +34,28 @@ int print_str(char *str)
 }
 
 /**
+ *print_number - Print a number (d or i)
+ *@num: Number to print
+ *Return: Number of characters printed
+*/
+int print_number(int num)
+{
+	int count = 0;
+
+	if (num < 0)
+	{
+		count += write(1, "-", 1);
+		num = -num;
+	}
+
+	if (num / 10)
+		count += print_number(num / 10);
+
+	count += print_char(num % 10 + '0');
+	return (count);
+}
+
+/**
  *_printf - Custom printf function
  *@format: Format string
  *Return: Number of characters printed
@@ -45,6 +67,7 @@ int _printf(const char *format, ...)
 	const char *ptr;
 	char c;
 	char *str;
+	int num;
 
 	va_start(args, format);
 
@@ -63,6 +86,11 @@ int _printf(const char *format, ...)
 					str = va_arg(args, char *);
 					count += print_str(str);
 					break;
+				case 'd':
+				case 'i':
+					num = va_arg(args, int);
+					count += print_number(num);
+					break;
 				case '%':
 					count += print_char('%');
 					break;
@@ -77,6 +105,7 @@ int _printf(const char *format, ...)
 			count += print_char(*ptr);
 		}
 	}
+
 
 	va_end(args);
 	return (count);
