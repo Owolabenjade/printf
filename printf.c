@@ -3,6 +3,37 @@
 #include <unistd.h>
 
 /**
+ *print_char - Print a character
+ *@c: Character to print
+ *Return: Number of characters printed (1)
+*/
+int print_char(char c)
+{
+	return (write(1, &c, 1));
+}
+
+/**
+ *print_str - Print a string
+ *@str: String to print
+ *Return: Number of characters printed
+*/
+int print_str(char *str)
+{
+	int count = 0;
+
+	if (str == NULL)
+		str = "(null)";
+
+	while (*str != '\0')
+	{
+		count += write(1, str, 1);
+		str++;
+	}
+
+	return (count);
+}
+
+/**
  *_printf - Custom printf function
  *@format: Format string
  *Return: Number of characters printed
@@ -26,34 +57,24 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					c = va_arg(args, int);
-					write(1, &c, 1);
-					count++;
+					count += print_char(c);
 					break;
 				case 's':
 					str = va_arg(args, char *);
-					while (*str != '\0')
-					{
-						write(1, str, 1);
-						str++;
-						count++;
-					}
+					count += print_str(str);
 					break;
 				case '%':
-					write(1, "%", 1);
-					count++;
+					count += print_char('%');
 					break;
 				default:
-					/* Handle unknown format specifier as in printf */
-					write(1, "%", 1);
-					write(1, &(*ptr), 1);
-					count += 2;
+					count += print_char('%');
+					count += print_char(*ptr);
 					break;
 			}
 		}
 		else
 		{
-			write(1, &(*ptr), 1);
-			count++;
+			count += print_char(*ptr);
 		}
 	}
 
